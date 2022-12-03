@@ -1,0 +1,108 @@
+<div class="navigation-bar-container">
+  <div class="navigation-bar-left">
+    <a href="" class="logo-container">
+      <img class="logo" src="assets/svg/nav-logo.svg" />
+    </a>
+    <tui-hosted-dropdown [content]="dropdownSearch" [(open)]="isDropDownSearchVisible">
+      <div class="search-box-container">
+        <tui-svg src="tuiIconSearchLarge" class="search-icon"></tui-svg>
+        <input
+          class="tui-text_body-m-2"
+          type="text"
+          placeholder="Search on Honest"
+          (keyup)="onSearch($event)"
+          (click)="toggleDropDownSearch()"
+          #searchInput
+        />
+      </div>
+    </tui-hosted-dropdown>
+
+    <ng-template #dropdownSearch class="dropdown-search">
+      <tui-data-list [emptyContent]="searchInput.value !== '' && !isLoadingSearch ? 'No users found' : 'Try searching for friends'">
+        <a *ngFor="let user of searchUsers; index as i" tuiOption [href]="'profile/' + user.id">
+          <div class="item-container">
+            <img [src]="user.avatar" class="user-avatar" />
+            <div>
+              <p class="tui-text_body-m username">{{ user.firstName + ' ' + user.lastName }}</p>
+              <p class="tui-text_body-s relationship">{{ user.relationship | relationship }}</p>
+            </div>
+          </div>
+        </a>
+      </tui-data-list>
+      <tui-loader *ngIf="isLoadingSearch" class="loader"></tui-loader>
+    </ng-template>
+  </div>
+  <div class="navigation-bar-right">
+    <div class="menu-btn" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="onNavigate()">
+      <tui-svg src="assets/svg/home-icon.svg"></tui-svg>
+    </div>
+    <div class="menu-btn" routerLink="message" routerLinkActive="active" (click)="onNavigate()">
+      <tui-svg src="assets/svg/message-icon.svg"></tui-svg>
+    </div>
+    <tui-hosted-dropdown [content]="dropDownNotification" [(open)]="isDropDownNotificationVisible" tuiDropdownAlign="right">
+      <div class="menu-btn" (click)="onNotificationBtnClick()">
+        <tui-svg src="assets/svg/bell-icon.svg"></tui-svg>
+        <!-- <div
+          style="
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            text-align: center;
+          "
+          *ngIf="notificationSignalRService.newNotification"
+        ></div> -->
+      </div>
+    </tui-hosted-dropdown>
+
+    <ng-template #dropDownNotification>
+      <div class="notification-container">
+        <div class="tui-text_h6 notification-title">Notifications</div>
+        <tui-loader [showLoader]="notificationStore.isLoading"></tui-loader>
+        <div *ngIf="notificationStore.notifications.length === 0 && !notificationStore.isLoading" class="empty-msg">
+          There is no friend request!
+        </div>
+        <div *ngFor="let item of notificationStore.notifications; index as i" tuiOption class="notification-item-container">
+          <a [href]="'profile/' + item.triggerUser.id">
+            <tui-avatar [avatarUrl]="item.triggerUser.avatar" [rounded]="true" [size]="'m'"></tui-avatar>
+          </a>
+          <div class="info-container">
+            <div style="display: flex; flex-direction: row; align-items: center">
+              <p class="tui-text_body-m username" style="flex: 1">{{ item.triggerUser.firstName }} {{ item.triggerUser.lastName }}</p>
+              <p>{{ item.date | messageTime }}</p>
+            </div>
+            <div class="btn-container tui-space_top-1">
+              <button tuiButton size="s" class="confirm-btn" (click)="onConfirmFriendRequest(item)">Accept</button>
+              <button tuiButton size="s" class="decline-btn" appearance="secondary" (click)="onDeclineFriendRequest(item)">Decline</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <tui-hosted-dropdown [content]="dropdownProfile" [(open)]="isDropDownProfileVisible">
+      <div [class]="isOnProfilePage == true ? 'profile-btn-active' : 'menu-btn'">
+        <tui-svg src="assets/svg/profile-icon.svg"></tui-svg>
+      </div>
+    </tui-hosted-dropdown>
+
+    <ng-template #dropdownProfile>
+      <tui-data-list>
+        <a *ngFor="let item of profileItems; index as i" tuiOption (click)="toggleDropDownProfile(i)" [routerLink]="item.link">
+          {{ item.label }}
+        </a>
+      </tui-data-list>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template let-observer [tuiDialogOptions]="{ label: 'Confirm log out', size: 's' }" [(tuiDialog)]="isDialogOpened">
+  <p class="tui-text_body-m tui-space_vertical-4">Do you want to log out?</p>
+  <div class="tui-form__buttons buttons">
+    <button tuiButton size="m" (click)="logout()">Log out</button>
+    <button tuiButton size="m" (click)="observer.complete()" appearance="outline">Cancel</button>
+  </div>
+</ng-template>

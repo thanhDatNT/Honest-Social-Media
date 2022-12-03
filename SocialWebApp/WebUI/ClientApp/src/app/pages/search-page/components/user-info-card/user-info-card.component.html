@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="avatar-container" [routerLink]="'/profile/' + user.id">
+    <tui-avatar [avatarUrl]="user.avatar" [rounded]="true"></tui-avatar>
+  </div>
+  <div class="info-container" [routerLink]="'/profile/' + user.id">
+    <p class="profile-name tui-text_body-m">{{ user.firstName }} {{ user.lastName }}</p>
+    <p class="username tui-text_body-m">{{ user.userName }}</p>
+  </div>
+  <button
+    tuiButton
+    size="s"
+    [appearance]="user.relationship > 1 ? 'primary' : 'secondary'"
+    class="btn-action"
+    (click)="handleOnButtonPress()"
+    [disabled]="user.relationship === 3"
+    [showLoader]="isLoading"
+  >
+    <p class="tui-text_body-m">{{ user.relationship | buttonRelationship }}</p>
+  </button>
+
+  <button class="btn-action" tuiButton size="s" *ngIf="user.relationship === 4" (click)="onDeclineFriendRequest()">
+    <p class="tui-text_body-m">Decline</p>
+  </button>
+</div>

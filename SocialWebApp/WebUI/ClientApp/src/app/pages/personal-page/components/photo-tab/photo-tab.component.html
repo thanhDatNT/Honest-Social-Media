@@ -1,0 +1,24 @@
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="0"
+  [infiniteScrollThrottle]="1000"
+  [infiniteScrollDisabled]="!scrollable"
+  (scrolled)="onScroll()"
+  class="container tui-container tui-container_adaptive"
+>
+  <div class="header">
+    <div class="tui-space_horizontal-5 tui-space_top-2 tui-text_h5 title">Photos</div>
+    <div (click)="seeAll()" *ngIf="!scrollable && hasNextPage" class="btn tui-space_horizontal-5 tui-space_top-2 tui-text_body-s">
+      See all
+    </div>
+  </div>
+  <tui-loader *ngIf="isLoading && photos.length === 0"></tui-loader>
+  <div *ngIf="!isLoading && photos.length === 0" class="empty-msg tui-text_body-l">No photos found!</div>
+  <div class="tui-row tui-row_adaptive">
+    <div class="tui-col_4" *ngFor="let item of photos; let i = index">
+      <img [src]="item.photoString" />
+    </div>
+  </div>
+  <tui-loader *ngIf="isLoading && photos.length !== 0"></tui-loader>
+</div>
+<div class="blank-spacer"></div>

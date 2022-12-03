@@ -1,0 +1,9 @@
+.icon {
+  font-size: 1.25rem;
+}
+
+@media screen and (max-width: 47.9625em) {
+  .tui-text_body-m-2 {
+    font-size: var(--tui-font-text-xs);
+  }
+}

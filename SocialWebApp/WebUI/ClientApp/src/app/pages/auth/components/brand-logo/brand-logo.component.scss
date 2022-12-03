@@ -1,0 +1,42 @@
+.brand-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+
+  .title-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    .title_sub {
+      margin-top: 2rem;
+    }
+  }
+
+  .logo {
+    margin-top: calc(2.5rem + 30px);
+    width: max(80%, 17rem);
+    align-self: center;
+    img {
+      width: 100%;
+      object-position: center;
+      object-fit: cover;
+    }
+  }
+}
+
+@media screen and (max-width: 47.9625em) {
+  .brand-container {
+    .title-container {
+      position: relative;
+
+      .title_sub {
+        margin-top: 1rem;
+      }
+    }
+    .logo {
+      margin-top: 0;
+      width: 20rem;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.container {
+  margin: 20px auto 0 auto;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid var(--tui-base-03);
+  background-color: var(--tui-accent-text);
+
+  ::ng-deep svg {
+    cursor: pointer;
+  }
+  .btn {
+    font-size: 25px;
+  }
+  .btn-send {
+    color: var(--tui-primary);
+  }
+  input {
+    border: none;
+    height: 16px;
+    margin-left: 10px;
+    flex: 1;
+    &:focus {
+      outline: none;
+    }
+  }
+}

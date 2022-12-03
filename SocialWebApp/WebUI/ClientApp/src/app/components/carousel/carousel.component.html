@@ -1,0 +1,21 @@
+<div tuiCarouselButtons class="tui-space_vertical-2 wrapper" *ngIf="imageUrls.length > 1; else singleItem">
+  <button *ngIf="!disableButton" tuiIconButton icon="tuiIconChevronLeftLarge" title="Previous" (click)="carousel.prev()"></button>
+  <tui-carousel #carousel class="carousel" [itemsCount]="1" [duration]="3000" [(index)]="index">
+    <ng-container *ngFor="let item of imageUrls; index as i">
+      <img *tuiItem alt="" draggable="false" src="{{ item }}" class="item" [class.item_active]="i === index + 1" />
+    </ng-container>
+  </tui-carousel>
+  <button *ngIf="!disableButton" tuiIconButton icon="tuiIconChevronRightLarge" title="Next" (click)="carousel.next()"></button>
+</div>
+
+<ng-template #singleItem>
+  <tui-carousel class="carousel" [itemsCount]="1" [duration]="3000" [(index)]="index">
+    <ng-container *ngFor="let item of imageUrls; index as i">
+      <img *tuiItem alt="" draggable="false" src="{{ item }}" class="item" [class.item_active]="i === index + 1" />
+    </ng-container>
+  </tui-carousel>
+</ng-template>
+
+<ng-container *ngIf="imageUrls.length > 1">
+  <tui-pagination size="m" class="tui-space_top-4" [length]="imageUrls.length" [(index)]="index"></tui-pagination>
+</ng-container>

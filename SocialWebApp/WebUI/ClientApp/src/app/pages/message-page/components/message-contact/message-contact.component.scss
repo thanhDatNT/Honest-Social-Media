@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  cursor: pointer;
+  &-left {
+    display: flex;
+    flex: 1;
+
+    & > div {
+      margin-left: 10px;
+    }
+    .user-name {
+      font-weight: 700;
+      font-size: 15px;
+    }
+  }
+  &-right {
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .btn-more {
+      cursor: pointer;
+    }
+  }
+  .unread-message {
+    font-weight: bold;
+    color: var(--tui-primary) !important;
+  }
+  .message-content {
+    --line-to-show: 1;
+    font-size: 15px;
+    color: (var(--tui-base-05));
+
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line-to-show); /* number of lines to show */
+    -webkit-box-orient: vertical;
+  }
+}
+.btn-clear {
+  cursor: pointer;
+  font-weight: bold;
+}

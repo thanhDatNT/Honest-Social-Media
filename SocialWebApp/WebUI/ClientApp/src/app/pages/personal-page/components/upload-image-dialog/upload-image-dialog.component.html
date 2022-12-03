@@ -1,0 +1,28 @@
+<div class="header">
+  <h1 class="title">Upload Image</h1>
+  <tui-svg src="tuiIconClose" (click)="handleCloseDialog(observer)"></tui-svg>
+</div>
+<div>
+  <div>
+    <tui-input-files
+      *ngIf="!control.value && !rejectedState"
+      accept=".png, .jpg, .jpeg,"
+      [formControl]="control"
+      (reject)="onReject($event)"
+      [multiple]="false"
+      [maxFileSize]="2200000"
+    ></tui-input-files>
+
+    <tui-files class="tui-space_top-1">
+      <tui-file *ngIf="loadedFiles$ | async as file" [file]="file" (removed)="removeFile()"></tui-file>
+      <tui-file *ngIf="rejectedFiles$ | async as file" #rejectedFile state="error" [file]="file" (removed)="clearRejected()"></tui-file>
+      <tui-file *ngIf="loadingFiles$ | async as file" state="loading" [file]="file"></tui-file>
+    </tui-files>
+    <div class="img-container">
+      <img *ngIf="imageUrl" [class]="type === 'avatar' ? 'img-avatar' : 'img-cover'" [src]="imageUrl" />
+    </div>
+  </div>
+</div>
+<div class="btn-container">
+  <button *ngIf="imageUrl" tuiButton type="submit" (click)="onSubmit(observer)" size="m" [showLoader]="loading">Proceed Upload</button>
+</div>

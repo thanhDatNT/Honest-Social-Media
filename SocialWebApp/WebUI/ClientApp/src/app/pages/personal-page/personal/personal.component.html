@@ -1,0 +1,109 @@
+<div class="cover-image-container">
+  <tui-avatar class="cover-image" [avatarUrl]="userInfo?.cover || mockImg"></tui-avatar>
+  <button
+    *ngIf="loggedInUserId === userInfo?.id"
+    appearance="secondary"
+    size="m"
+    class="btn-add-cover"
+    tuiButton
+    icon="tuiIconCameraLarge"
+    (click)="this.onUploadPhotoClick.emit(template); uploadType = 'cover'"
+  >
+    Add cover photo
+  </button>
+</div>
+
+<div class="tui-row tui-row_adaptive tui-row_align_center">
+  <div [class]="loggedInUserId === userInfo?.id ? 'logged-in-user-avatar-container' : 'user-avatar-container'">
+    <tui-avatar
+      class="user-avatar"
+      [size]="'xxl'"
+      [rounded]="true"
+      [avatarUrl]="userInfo?.avatar || mockImg"
+      (click)="loggedInUserId === userInfo?.id && this.onUploadPhotoClick.emit(template); uploadType = 'avatar'"
+    ></tui-avatar>
+    <tui-avatar
+      *ngIf="loggedInUserId === userInfo?.id"
+      class="btn-upload-avatar"
+      [rounded]="true"
+      size="s"
+      avatarUrl="tuiIconCameraLarge"
+      (click)="this.onUploadPhotoClick.emit(template); uploadType = 'avatar'"
+    ></tui-avatar>
+  </div>
+  <p class="tui-text_h5 tui-space_left-3">{{ userInfo?.firstName }} {{ userInfo?.lastName }}</p>
+  <button *ngIf="loggedInUserId === userInfo?.id" class="btn-edit" appearance="secondary" size="m" tuiButton [disabled]="true">
+    Edit profile
+  </button>
+  <div *ngIf="loggedInUserId !== userInfo?.id" class="friend-request-btn-container">
+    <button
+      button
+      tuiButton
+      size="s"
+      (click)="handleOnActionPress.emit()"
+      [disabled]="userInfo ? userInfo.relationship === 3 : true"
+      [showLoader]="isLoadingFriendRequest"
+      appearance="primary"
+      class="btn-relationship"
+      type="button"
+    >
+      {{ userInfo?.relationship | profileButtonRelationship }}
+    </button>
+    <button *ngIf="userInfo?.relationship === 4" tuiButton size="s" class="decline-btn" (click)="handleDeclineFriendRequest.emit()">
+      Decline
+    </button>
+    <button
+      tuiButton
+      size="s"
+      [disabled]="userInfo ? userInfo.relationship !== 1 : true"
+      (click)="onMessageClick.emit()"
+      appearance="primary"
+      class="btn-msg"
+    >
+      Message
+    </button>
+  </div>
+</div>
+
+<div class="tui-container_fixed user-bio-container">
+  <p class="tui-space_bottom-5 tui-space_horizontal-5 tui-text_h5">Introduction</p>
+  <app-info-item [value]="userInfo?.userName" icon="tuiIconUser"></app-info-item>
+  <app-info-item [value]="userInfo?.email" icon="tuiIconMail"></app-info-item>
+  <app-info-item [value]="userInfo?.gender | gender" icon="tuiIconStarFilled"></app-info-item>
+  <app-info-item [value]="userInfo?.phoneNo" icon="tuiIconCall"></app-info-item>
+</div>
+<tui-tabs class="tabs-bar" [(activeItemIndex)]="activeItemIndex">
+  <button tuiTab>Posts</button>
+  <button tuiTab>Friends</button>
+  <button tuiTab>Photos</button>
+</tui-tabs>
+
+<div class="tui-container-fixed" [ngSwitch]="activeItemIndex">
+  <div *ngSwitchCase="'0'" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="this.onScroll.emit()">
+    <div class="tui-space_top-4">
+      <app-new-post *ngIf="userInfo?.id === loggedInUserId" (handlePostSucceeded)="handlePostSucceeded.emit()"></app-new-post>
+    </div>
+    <app-post *ngFor="let post of personalPosts" [post]="post" (onDeletePost)="handleDeletePost.emit()"></app-post>
+
+    <tui-loader class="tui-space_top-5" [size]="'l'" [showLoader]="isLoading"> </tui-loader>
+  </div>
+  <div *ngSwitchCase="'1'">
+    <app-friend-tab [user]="userInfo"></app-friend-tab>
+  </div>
+
+  <div *ngSwitchCase="'2'">
+    <app-photo-tab [user]="userInfo"></app-photo-tab>
+  </div>
+</div>
+
+<ng-template #template let-observer>
+  <app-upload-image-dialog
+    [observer]="observer"
+    [type]="uploadType"
+    (onUploadPhotoSuccess)="onPhotoUpload.emit({$event, uploadType});activeItemIndex = 0"
+  ></app-upload-image-dialog>
+</ng-template>
+
+<ng-template let-observer [tuiDialogOptions]="{ label: 'Error', size: 's' }" [(tuiDialog)]="userNotFound">
+  <p>User Not Found</p>
+</ng-template>

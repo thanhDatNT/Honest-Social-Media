@@ -1,0 +1,85 @@
+@import '/node_modules/@taiga-ui/core/styles/mixins/mixins.scss';
+
+.container {
+  width: 100% !important;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 20px;
+  @include shadow(1);
+  .empty-msg {
+    text-align: center;
+    color: var(--tui-base-06);
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    padding: 0px 20px;
+    margin: 20px 0px;
+    align-items: center;
+
+    .title {
+      flex: 1;
+    }
+    .btn {
+      cursor: pointer;
+      color: var(--tui-primary);
+      &:hover {
+        color: var(--tui-chart-2);
+      }
+    }
+  }
+}
+
+.blank-spacer {
+  height: 20px;
+}
+
+.search-box-container {
+  display: flex;
+  width: 40%;
+  align-items: center;
+  padding: 10px;
+
+  border-radius: 20px;
+  background-color: var(--tui-base-03);
+  tui-svg {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  input {
+    flex: 1;
+    width: 500px;
+    border: none;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.tui-row {
+  width: 90% !important;
+  padding: 0;
+  margin: 0 auto;
+  > a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: var(--tui-base-09);
+    &:hover {
+      cursor: pointer;
+      background-color: var(--tui-base-04);
+      border-radius: 10px;
+    }
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+  }
+}

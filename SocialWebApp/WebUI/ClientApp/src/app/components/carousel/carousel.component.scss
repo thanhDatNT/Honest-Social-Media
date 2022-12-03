@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+
+  :host-context(tui-root._mobile) & {
+    margin: 0;
+
+    button {
+      display: none;
+    }
+  }
+}
+
+.carousel {
+  margin: 0 1rem;
+  justify-content: center;
+}
+
+.item {
+  width: 50%;
+  align-self: center;
+}

@@ -1,0 +1,17 @@
+<app-message
+  [friendsMessages]="messageStore.friendsMessages"
+  [userId]="userId"
+  [listMessages]="messageStore.messages"
+  [chosenFriend]="messageStore.chosenFriend"
+  [isLoading]="messageStore.isLoading"
+  [isSearching]="messageStore.isSearching"
+  [searchedFriends]="messageStore.searchedFriends"
+  (onSendPhoto)="handleSendPhoto($event)"
+  (onSendDocument)="handleSendDocument($event)"
+  (onSend)="handleSendMessage($event)"
+  (onContactClick)="handleContactClick($event)"
+  (onMessageScroll)="handleMessageScroll()"
+  (onSearchFriend)="handleSearchFriend($event)"
+  (onClickSearchFriend)="handleClickSearchFriend($event)"
+  (onHideMessage)="handleHideMessage($event)"
+></app-message>

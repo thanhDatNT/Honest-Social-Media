@@ -1,0 +1,15 @@
+<div [ngClass]="{ receive: type === messageType.RECEIVE, send: type === messageType.SEND, container: true }">
+  <tui-avatar [rounded]="true" *ngIf="type === messageType.RECEIVE" [avatarUrl]="chosenFriend?.avatar || mockImg"></tui-avatar>
+  <div class="message-info">
+    <p *ngIf="message.type === messageContentType.TEXT" class="message-text">
+      {{ message.content }}
+    </p>
+    <tui-avatar size="xxl" *ngIf="message.type === messageContentType.IMAGE" class="message-img" [avatarUrl]="message.content">
+    </tui-avatar>
+
+    <a target="_blank" *ngIf="message.type === messageContentType.DOC" class="message-text" [href]="message.content">{{
+      message.content.split('_')[1]
+    }}</a>
+    <p class="message-time">{{ message.createdAt | messageTime }}</p>
+  </div>
+</div>

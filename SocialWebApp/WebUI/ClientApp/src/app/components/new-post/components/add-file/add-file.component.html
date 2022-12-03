@@ -1,0 +1,10 @@
+<div class="tui-row tui-row_align_center tui-space_left-2">
+  <button tuiButton size="s" type="button" appearance="flat" (click)="showDialog(overviewImageUpload)">
+    <tui-svg class="icon" src="tuiIconPicture"></tui-svg>
+  </button>
+  <p class="tui-text_body-m-2">Add something to your post</p>
+</div>
+
+<ng-template #overviewImageUpload let-overviewImageUpload>
+  <app-load-file (sendImages)="handleImagesUploaded.emit()" (closeDialog)="overviewImageUpload.complete()"></app-load-file>
+</ng-template>

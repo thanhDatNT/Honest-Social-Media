@@ -1,0 +1,19 @@
+<div class="tui-container_adaptive personal-page-container">
+  <app-personal
+    [loggedInUserId]="loggedInUserId"
+    [userNotFound]="userNotFound"
+    [userInfo]="userInfo"
+    [personalPosts]="personalPosts"
+    [isLoading]="isLoading"
+    [uploadedAvatar]="avatar"
+    (onScroll)="handleOnScroll()"
+    (onUploadPhotoClick)="showDialog($event)"
+    (onPhotoUpload)="handlePhotoUploaded($event)"
+    (handlePostSucceeded)="handleAfterPosting()"
+    (handleDeletePost)="handleAfterPosting()"
+    (handleOnActionPress)="handleOnActionPress()"
+    [isLoadingFriendRequest]="isLoadingFriendRequest"
+    (onMessageClick)="onMessageClick()"
+    (handleDeclineFriendRequest)="handleDeclineFriendRequest()"
+  ></app-personal>
+</div>

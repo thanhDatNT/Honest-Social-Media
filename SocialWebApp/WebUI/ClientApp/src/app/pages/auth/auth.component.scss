@@ -1,0 +1,9 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > tui-island {
+    box-shadow: 0px 0px 20px var(--tui-base-02);
+  }
+}

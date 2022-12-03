@@ -1,0 +1,77 @@
+<div class="message-container" (click)="keyword = ''">
+  <div class="message-header">
+    <div class="message-header-left">
+      <p>Direct</p>
+    </div>
+    <div class="message-header-right">
+      <ng-container *ngIf="chosenFriend">
+        <div class="user-header-container" (click)="router.navigate(['/profile/' + chosenFriend.id])">
+          <tui-avatar avatarUrl="{{ chosenFriend.avatar }}" [rounded]="true"> </tui-avatar>
+          <p>{{ chosenFriend.firstName + ' ' + chosenFriend.lastName }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="message-body">
+    <div class="message-body-left">
+      <div [tuiDropdown]="dropdownContent" [tuiDropdownManual]="keyword.length > 0" class="search-box-container">
+        <tui-svg src="tuiIconSearchLarge" class="search-icon"></tui-svg>
+        <input
+          [(ngModel)]="keyword"
+          class="tui-text_body-m-2"
+          type="text"
+          placeholder="Search your friend"
+          (keyup)="onSearchFriend.emit(keyword)"
+        />
+        <ng-template #dropdownContent>
+          <tui-data-list
+            [emptyContent]="keyword !== '' && !isSearching ? 'No friends found' : 'Try searching for friends'"
+            class="items-container"
+          >
+            <tui-loader [showLoader]="isSearching"></tui-loader>
+            <a (click)="onClickSearchFriend.emit(user); keyword = ''" *ngFor="let user of searchedFriends" tuiOption class="item-container">
+              <tui-avatar [rounded]="true" class="tui-space_right-2" avatarUrl="{{ user.avatar }}"> </tui-avatar>
+              <div>
+                <p class="tui-text_body-m username">{{ user.firstName + ' ' + user.lastName }}</p>
+              </div>
+            </a>
+          </tui-data-list>
+        </ng-template>
+      </div>
+
+      <tui-loader [showLoader]="isLoading"></tui-loader>
+      <app-message-contact
+        *ngFor="let friendMessage of friendsMessages"
+        [friendMessage]="friendMessage"
+        [userId]="userId"
+        (onContactClick)="onContactClick.emit($event)"
+        (onHideMessage)="onHideMessage.emit($event)"
+      ></app-message-contact>
+
+      <p class="empty-message" *ngIf="!isLoading && friendsMessages.length === 0">You don't have any message yet</p>
+    </div>
+    <div class="message-body-right">
+      <div
+        [scrollWindow]="false"
+        infinite-scroll
+        (scrolledUp)="onMessageScroll.emit()"
+        [infiniteScrollThrottle]="1000"
+        class="messages-container"
+      >
+        <ng-container *ngFor="let message of listMessages">
+          <app-user-message
+            [chosenFriend]="chosenFriend"
+            [type]="message.senderId === userId ? messageType.SEND : messageType.RECEIVE"
+            [message]="message"
+            >{{ message.content }}
+          </app-user-message>
+        </ng-container>
+      </div>
+      <app-message-input
+        (onSendPhoto)="onSendPhoto.emit($event)"
+        (onSendDocument)="onSendDocument.emit($event)"
+        (onSend)="onSend.emit($event)"
+      ></app-message-input>
+    </div>
+  </div>
+</div>

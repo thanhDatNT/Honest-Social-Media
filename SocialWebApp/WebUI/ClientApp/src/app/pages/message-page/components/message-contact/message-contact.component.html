@@ -1,0 +1,55 @@
+<div
+  class="container"
+  (click)="
+    onContactClick.emit({
+      chosenUser: !isLastSendFromCurrentUser ? friendMessage.sender : friendMessage.receiver,
+      messageId: friendMessage.id
+    })
+  "
+>
+  <div class="container-left">
+    <tui-avatar
+      avatarUrl="{{ !isLastSendFromCurrentUser ? friendMessage.sender?.avatar : friendMessage.receiver?.avatar }}"
+      [rounded]="true"
+    ></tui-avatar>
+    <div>
+      <p class="user-name">
+        {{
+          !isLastSendFromCurrentUser
+            ? friendMessage.sender?.firstName + ' ' + friendMessage.sender?.lastName
+            : friendMessage.receiver?.firstName + ' ' + friendMessage.receiver?.lastName
+        }}
+      </p>
+      <p
+        *ngIf="friendMessage.type === messageContentType.TEXT"
+        class="message-content {{ !friendMessage.isRead && friendMessage.senderId !== userId && 'unread-message' }}"
+      >
+        {{ friendMessage.content }}
+      </p>
+      <p
+        *ngIf="friendMessage.type === messageContentType.IMAGE"
+        class="message-content {{ !friendMessage.isRead && friendMessage.senderId !== userId && 'unread-message' }}"
+      >
+        <tui-svg src="tuiIconPicture"></tui-svg> Media file sent
+      </p>
+      <p
+        *ngIf="friendMessage.type === messageContentType.DOC"
+        class="message-content {{ !friendMessage.isRead && friendMessage.senderId !== userId && 'unread-message' }}"
+      >
+        <tui-svg src="tuiIconDefaultDocLarge"></tui-svg> Document file sent
+      </p>
+    </div>
+  </div>
+  <div class="container-right">
+    <tui-svg class="btn-more" src="tuiIconMoreHorLarge" [tuiHint]="tooltip" tuiHintDirection="right" tui></tui-svg>
+    <ng-template #tooltip>
+      <strong
+        (click)="onHideMessage.emit(!isLastSendFromCurrentUser ? friendMessage.senderId : friendMessage.receiverId)"
+        class="btn-clear"
+      >
+        Hide conversation
+      </strong>
+    </ng-template>
+    <p class="message-time">{{ friendMessage.createdAt | messageTime }}</p>
+  </div>
+</div>

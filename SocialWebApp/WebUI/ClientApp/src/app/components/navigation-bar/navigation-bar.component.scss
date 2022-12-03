@@ -1,0 +1,194 @@
+@import '~@taiga-ui/core/styles/mixins/mixins.scss';
+
+$primary-color: #379cf3;
+
+.navigation-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  background: var(--tui-base-01);
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: var(--nav-bar-heigh);
+  padding: 10px 20px 10px 20px;
+  @include shadow(1);
+}
+
+.navigation-bar-left {
+  flex: 1;
+  display: flex;
+}
+.logo-container {
+  width: 100px;
+  position: relative;
+  margin-right: 20px;
+  .logo {
+    position: absolute;
+    top: 0;
+    transform: translateY(-25%);
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+  }
+}
+
+.search-box-container {
+  display: flex;
+  // width: 40%;
+  align-items: center;
+  padding: 10px;
+
+  border-radius: 20px;
+  background-color: var(--tui-base-03);
+  tui-svg {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  input {
+    flex: 1;
+    width: 500px;
+    border: none;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@mixin menu-btn($bg) {
+  position: relative;
+  display: flex;
+  width: 40px;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: $bg;
+  cursor: pointer;
+}
+
+.navigation-bar-right {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.menu-btn {
+  @include menu-btn(var(--tui-base-03));
+  margin-left: 15px;
+  flex-shrink: 0;
+  &:hover {
+    background-color: var(--tui-base-04);
+  }
+  &.active {
+    background-color: $primary-color;
+    margin-left: 15px;
+
+    tui-svg {
+      color: var(--tui-base-01);
+    }
+  }
+}
+
+.profile-btn-active {
+  @include menu-btn($primary-color);
+  tui-svg {
+    color: var(--tui-base-01);
+  }
+  margin-left: 15px;
+}
+
+::ng-deep tui-dropdown {
+  margin-top: 5px;
+}
+
+.buttons {
+  justify-content: space-evenly;
+}
+@media screen and (max-width: 47.9625em) {
+  .navigation-bar-container {
+    padding: 10px;
+  }
+  .logo-container {
+    display: none;
+  }
+  .navigation-bar-left {
+    flex: 0;
+    .search-box-container {
+      margin: 0;
+      input {
+        width: 200px;
+        font: var(--tui-font-text-s);
+      }
+    }
+  }
+  .navigation-bar-right {
+    .menu-btn {
+      margin-left: 10px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.username {
+  font-weight: 600;
+}
+
+.relationship {
+  color: var(--tui-base-05);
+}
+
+.item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.loader {
+  margin-bottom: 20px;
+}
+
+.notification-container {
+  width: 300px;
+  padding: 20px 20px;
+  z-index: auto;
+  > .notification-title {
+    margin-bottom: 20px;
+  }
+  > .empty-msg {
+    text-align: center;
+  }
+  > .notification-item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    > .info-container {
+      flex: 1;
+      margin-left: 20px;
+      > .username {
+        font-weight: 600;
+      }
+      .confirm-btn {
+        width: 80px;
+        height: 30px;
+      }
+      .decline-btn {
+        height: 30px;
+        width: 80px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

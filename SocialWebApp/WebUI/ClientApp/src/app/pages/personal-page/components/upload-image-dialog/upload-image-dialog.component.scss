@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 30px;
+  .title {
+    flex: 1;
+  }
+}
+
+.img-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .img-avatar {
+    width: 144px;
+    height: 144px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid gray;
+  }
+  .img-cover {
+    width: 422px;
+    height: 150px;
+    object-fit: contain;
+  }
+}
+
+.btn-container {
+  text-align: end;
+}

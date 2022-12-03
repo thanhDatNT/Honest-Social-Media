@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
+:root {
+  --tui-negative: #ff0033;
+  --tui-error-fill: #ff0033;
+  --tui-error-fill-night: #ff0033;
+  --tui-primary: #009cf3;
+  --tui-link: #009cf3;
+  --tui-text-font: 'Mulish', sans-serif;
+  --nav-bar-height: 60px;
+}
+
+html,
+*,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Mulish', sans-serif;
+}
+
+.center {
+  text-align: center;
+  align-self: center;
+}
+
+.confirm_button {
+  &._disabled {
+    > div {
+      background: var(--tui-base-05);
+    }
+  }
+}
+
+.mouse-pointer {
+  cursor: pointer;
+}
+
+.title {
+  color: var(--tui-primary);
+  font-weight: 700;
+
+  &_sub {
+    color: var(--tui-primary);
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+}

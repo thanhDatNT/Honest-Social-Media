@@ -1,0 +1,93 @@
+@import '../../../../../node_modules/@taiga-ui/core/styles/mixins/mixins.scss';
+
+.cover-image-container {
+  height: 300px;
+  position: relative;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+
+  .cover-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .btn-add-cover {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    ::ng-deep span {
+      color: var(--tui-base-09);
+    }
+  }
+}
+
+.user-avatar-container {
+  margin-left: 60px;
+  margin-top: -60px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.logged-in-user-avatar-container {
+  margin-left: 60px;
+  margin-top: -60px;
+  margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
+  .btn-upload-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+  }
+}
+
+.btn-edit {
+  display: block;
+  margin-left: auto;
+  margin-right: 35px;
+  ::ng-deep span {
+    color: var(--tui-base-09);
+  }
+}
+
+.user-bio-container {
+  border: 1px solid var(--tui-base-03);
+  border-bottom-left-radius: 10px;
+  padding: 1.5rem;
+}
+::ng-deep .tabs-bar {
+  padding: 0 10px;
+}
+
+.friend-request-btn-container {
+  margin-left: auto;
+  margin-right: 50px;
+}
+
+::ng-deep .btn-relationship {
+  max-width: 200px;
+  margin-right: 20px;
+  &._disabled {
+    color: var(--tui-base-01);
+    div {
+      background-color: var(--tui-base-05);
+      color: var(--tui-base-01);
+    }
+  }
+}
+
+::ng-deep .btn-msg {
+  width: 100px;
+  &._disabled {
+    color: var(--tui-base-01);
+    div {
+      background-color: var(--tui-base-05);
+      color: var(--tui-base-01);
+    }
+  }
+}
+
+.decline-btn {
+  margin-right: 20px;
+}

@@ -1,0 +1,24 @@
+<tui-hosted-dropdown #dropdown [content]="content" [(open)]="dropdownOpen">
+  <button
+    tuiIconButton
+    appearance="flat"
+    icon="tuiIconMoreHorLarge"
+    shape="rounded"
+    type="button"
+    [pseudoHover]="dropdown.open || null"
+  ></button>
+</tui-hosted-dropdown>
+
+<ng-template #content let-activeZone>
+  <tui-data-list tuiDataListDropdownManager [tuiActiveZoneParent]="activeZone">
+    <button *tuiLet="'Delete' as item" tuiOption (click)="handleOpenDialog()" size="s">Delete</button>
+  </tui-data-list>
+</ng-template>
+
+<ng-template let-observer [tuiDialogOptions]="{ label: 'Delete the post', size: 's' }" [(tuiDialog)]="isDialogOpened">
+  <p class="tui-text_body-m tui-space_vertical-4">Are you sure you want to delete this post?</p>
+  <div class="tui-form__buttons tui-form__buttons_align_end">
+    <button tuiButton size="m" (click)="observer.complete()" appearance="outline">Cancel</button>
+    <button tuiButton size="m" class="tui-space_left-2" (click)="deletePost()">OK</button>
+  </div>
+</ng-template>

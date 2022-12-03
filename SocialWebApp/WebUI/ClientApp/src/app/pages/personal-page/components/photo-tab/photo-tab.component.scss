@@ -1,0 +1,47 @@
+@import '/node_modules/@taiga-ui/core/styles/mixins/mixins.scss';
+
+::ng-deep .container {
+  width: 100% !important;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 20px;
+  @include shadow(1);
+  .empty-msg {
+    text-align: center;
+    color: var(--tui-base-06);
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    padding: 0px 20px;
+    margin: 20px 0px;
+    align-items: center;
+    .title {
+      flex: 1;
+    }
+  }
+
+  .tui-row {
+    width: 80% !important;
+    padding: 0;
+    margin: 0 auto;
+    div {
+      text-align: center;
+      width: 33.3333%;
+      height: 200px;
+      margin: 20px 0px;
+      padding: 0px;
+      img {
+        width: 200px;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+.blank-spacer {
+  height: 20px;
+}

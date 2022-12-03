@@ -1,0 +1,37 @@
+<div class="tui-col_12">
+  <div class="user-comment-container tui-row_align_start">
+    <tui-avatar [size]="'m'" [rounded]="true" [avatarUrl]="userInfo?.avatar || mockImage"></tui-avatar>
+
+    <div class="input-comment tui-space_left-2">
+      <tui-text-area
+        class="comment"
+        [expandable]="true"
+        tuiTextfieldIconLeft="tuiIconArrowRight"
+        [formControl]="commentValue"
+        [tuiTextfieldLabelOutside]="true"
+        [tuiTextfieldSize]="size"
+        >Write a comment...
+      </tui-text-area>
+      <tui-error [formControl]="commentValue" [error]="[] | tuiFieldError | async"></tui-error>
+    </div>
+
+    <ng-container *ngIf="!isSent; else postCommentProgress">
+      <button
+        tuiButton
+        type="button"
+        iconRight="tuiIconCheckLarge"
+        class="tui-space_left-3 confirm_button"
+        size="m"
+        [disabled]="!(commentValue.valid && commentValue.dirty) || disablePost"
+        shape="rounded"
+        (click)="onPostComment()"
+      >
+        Post
+      </button>
+    </ng-container>
+
+    <ng-template #postCommentProgress>
+      <progress tuiProgressBar max="100" class="progress tui-space_left-3"></progress>
+    </ng-template>
+  </div>
+</div>

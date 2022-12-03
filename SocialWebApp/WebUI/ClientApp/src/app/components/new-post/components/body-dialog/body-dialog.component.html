@@ -1,0 +1,37 @@
+<form [formGroup]="postForm" (ngSubmit)="onPostSummited()">
+  <app-user-info></app-user-info>
+
+  <tui-text-area
+    formControlName="postStatusValue"
+    [tuiTextfieldLabelOutside]="true"
+    [tuiAutoFocus]="true"
+    [maxLength]="1000"
+    [expandable]="true"
+    class="status-container no-shadow tui-space_bottom-2"
+  >
+    What do you think?
+    <textarea tuiTextfield maxlength="1000"></textarea>
+  </tui-text-area>
+  <ng-container *ngIf="files.length > 0">
+    <app-carousel [imageUrls]="files" [disableButton]="true"></app-carousel>
+  </ng-container>
+
+  <tui-island class="tui-space_vertical-4" size="s">
+    <div class="tui-container tui-container_fullwidth">
+      <div class="tui-row tui-row_align_center add-file__frame">
+        <app-add-file (handleOpenPostDialog)="handleOpenDialog.emit()" (handleImagesUploaded)="onImagesUploaded()"></app-add-file>
+        <button
+          tuiButton
+          type="submit"
+          [showLoader]="isSendingData"
+          size="m"
+          [disabled]="!(postForm.valid && postForm.dirty) || disablePosting"
+          class="confirm_button"
+        >
+          Post
+        </button>
+      </div>
+    </div>
+  </tui-island>
+  <tui-error formControlName="postStatusValue" [error]="[] | tuiFieldError | async"></tui-error>
+</form>

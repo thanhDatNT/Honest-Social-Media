@@ -1,0 +1,10 @@
+.search-page-container {
+  width: 940px;
+  margin: calc(var(--nav-bar-height) + 10px) auto 0 auto;
+}
+
+@media screen and (max-width: 47.9625em) {
+  .search-page-container {
+    width: 100%;
+  }
+}

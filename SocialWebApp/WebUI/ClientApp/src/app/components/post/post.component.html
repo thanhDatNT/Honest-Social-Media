@@ -1,0 +1,53 @@
+<div class="tui-container_adaptive tui-space_vertical-5 post-container">
+  <div class="post-header">
+    <div class="post-header-left mouse-pointer" (click)="handleNavigateAccount(post.user.id)">
+      <tui-avatar class="tui-space_right-2" [size]="'m'" [rounded]="true" [avatarUrl]="post.user.avatar || mockImg"></tui-avatar>
+      <div>
+        <p class="post-user tui-text_body-m">{{ post.user.firstName }} {{ post.user.lastName }}</p>
+        <p class="tui-text_body-m post-time">
+          {{ post.createdAt | dateFromNow }}
+        </p>
+      </div>
+    </div>
+    <div *ngIf="canPostDeleted()">
+      <app-delete (handlePostDeleted)="handlePostDeleted()"></app-delete>
+    </div>
+  </div>
+
+  <p #postStatusRef class="tui-text_body-m-2 post-status">
+    {{ post.status }}
+  </p>
+  <p *ngIf="hasSeeMore" (click)="onSeeMore()" class="see-more tui-text_body-m">See more</p>
+
+  <div *ngIf="postImages.length > 0">
+    <app-carousel [imageUrls]="postImages"></app-carousel>
+  </div>
+
+  <div class="post-numbers">
+    <p class="tui-text_body-m">{{ post.numberOfLikes | plural: 'Like' }}</p>
+    <p class="tui-text_body-m">{{ post.numberOfComments | plural: 'Comment' }}</p>
+  </div>
+
+  <div class="btn-actions">
+    <div (click)="handleToggleLikePost()" class="btn-action">
+      <tui-svg [ngClass]="isLiked ? 'likedHeart' : null" [src]="isLiked ? 'tuiIconHeartFilledLarge' : 'tuiIconHeartLarge'"></tui-svg>
+      <p class="tui-text_body-m">Like</p>
+    </div>
+    <div class="btn-action" (click)="toggleCommentExpand()">
+      <tui-svg src="tuiIconCommentLarge"></tui-svg>
+      <p class="tui-text_body-m">Comment</p>
+    </div>
+  </div>
+
+  <tui-expand [expanded]="expanded">
+    <ng-template tuiExpandContent>
+      <div class="tui-space_vertical-2 tui-space_horizontal-4">
+        <app-comment-container
+          [postId]="post.id"
+          (onRefreshPost)="onRefreshPost()"
+          [userCommentList]="post.comments"
+        ></app-comment-container>
+      </div>
+    </ng-template>
+  </tui-expand>
+</div>

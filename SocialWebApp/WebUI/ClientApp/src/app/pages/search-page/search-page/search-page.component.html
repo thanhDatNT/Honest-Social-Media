@@ -1,0 +1,12 @@
+<div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="this.onScroll.emit()" class="container">
+  <h1 class="title">Search Result</h1>
+  <div *ngIf="userList.length === 0 && !isLoading" class="empty-list-msg">
+    <h1>NO USERS FOUND!</h1>
+    <img src="assets/images/no-search-found.jpg" alt="" />
+  </div>
+  <div *ngFor="let user of userList" class="item-container">
+    <app-user-info-card (onNavigateMessage)="onNavigateMessage.emit($event)" [user]="user"></app-user-info-card>
+  </div>
+  <tui-loader [showLoader]="isLoading"></tui-loader>
+  <div class="blank-spacer"></div>
+</div>

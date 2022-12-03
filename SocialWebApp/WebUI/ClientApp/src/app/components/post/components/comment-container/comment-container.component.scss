@@ -1,0 +1,12 @@
+.user-comment-container {
+  display: flex;
+
+  .input-comment {
+    flex-grow: 1;
+
+    .comment {
+      border-radius: 20px;
+      min-height: var(--tui-height-m);
+    }
+  }
+}

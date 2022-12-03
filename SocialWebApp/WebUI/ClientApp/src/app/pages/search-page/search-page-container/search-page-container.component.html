@@ -1,0 +1,8 @@
+<div class="tui-container_adaptive search-page-container">
+  <app-search-page
+    [userList]="userList"
+    [isLoading]="isLoading"
+    (onNavigateMessage)="handleNavigateMessage($event)"
+    (onScroll)="handleOnScroll()"
+  ></app-search-page>
+</div>
